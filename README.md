@@ -31,9 +31,9 @@ That's it! The package is now ready to use in your SwiftUI project.
 
 ## 💻 Requirements
 
-- iOS 14.0+ / macOS 11.0+
-- Xcode 13+
-- Swift 5.5+
+- iOS 13.0+ / macOS 13.0+
+- Xcode 16
+- Swift 6.1
 - SwiftUI framework
 
 ## 🧩 Usage
@@ -41,8 +41,8 @@ That's it! The package is now ready to use in your SwiftUI project.
 ```swift
 import ProfessionalCard
 
-ProfessionalCardView(titile: "Analytics",
-  subtitile: "View detailed perfomance metrics and insights",
+ProfessionalCardView(title: "Analytics",
+  subTitle: "View detailed perfomance metrics and insights",
   iconName: "chart.line.uptrend.xyaxis",
   gradientColors: [.blue, .cyan  ], badgeText: "New") {
   // Action Here
