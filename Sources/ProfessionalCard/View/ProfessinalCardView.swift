@@ -8,7 +8,7 @@
 import SwiftUI
 import AppKit
 
-struct ProfessinalCard: View {
+struct ProfessinalCardView: View {
     let titile: String
     let subtitile: String
     let iconName: String
@@ -240,7 +240,7 @@ struct ProfessinalCard: View {
 }
 
 #Preview {
-    ProfessinalCard(titile: "Analytics", subtitile: "View detailed perfomance metrics and insights", iconName: "chart.line.uptrend.xyaxis", gradientColors: [.blue, .cyan  ], badgeText: "New") {
+    ProfessinalCardView(titile: "Analytics", subtitile: "View detailed perfomance metrics and insights", iconName: "chart.line.uptrend.xyaxis", gradientColors: [.blue, .cyan  ], badgeText: "New") {
         
     }
 }
