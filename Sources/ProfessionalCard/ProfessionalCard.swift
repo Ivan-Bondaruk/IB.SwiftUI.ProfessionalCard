@@ -20,9 +20,9 @@ public struct ProfessionalCardView: View {
     @State private var isHovered: Bool = false
     @State private var showProgressBar: Bool = false
     
-    public init(titile: String, subtitile: String, iconName: String, gradientColors: [Color], badgeText: String?, action: @escaping () -> Void, isPressed: Bool = false, isHovered: Bool = false, showProgressBar: Bool = false) {
-        self.title = titile
-        self.subTitle = subtitile
+    public init(title: String, subTitle: String, iconName: String, gradientColors: [Color], badgeText: String?, action: @escaping () -> Void, isPressed: Bool = false, isHovered: Bool = false, showProgressBar: Bool = false) {
+        self.title = title
+        self.subTitle = subTitle
         self.iconName = iconName
         self.gradientColors = gradientColors
         self.badgeText = badgeText
