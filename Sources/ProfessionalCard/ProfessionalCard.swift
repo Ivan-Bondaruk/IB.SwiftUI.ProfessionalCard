@@ -8,9 +8,9 @@
 import SwiftUI
 import AppKit
 
-struct ProfessinalCard: View {
-    let titile: String
-    let subtitile: String
+public struct ProfessionalCardView: View {
+    let title: String
+    let subTitle: String
     let iconName: String
     let gradientColors: [Color]
     let badgeText: String?
@@ -21,8 +21,8 @@ struct ProfessinalCard: View {
     @State private var showProgressBar: Bool = false
     
     public init(titile: String, subtitile: String, iconName: String, gradientColors: [Color], badgeText: String?, action: @escaping () -> Void, isPressed: Bool = false, isHovered: Bool = false, showProgressBar: Bool = false) {
-        self.titile = titile
-        self.subtitile = subtitile
+        self.title = titile
+        self.subTitle = subtitile
         self.iconName = iconName
         self.gradientColors = gradientColors
         self.badgeText = badgeText
@@ -32,7 +32,7 @@ struct ProfessinalCard: View {
         self.showProgressBar = showProgressBar
     }
     
-    var body: some View {
+    public var body: some View {
         Button {
             
         } label: {
@@ -106,13 +106,13 @@ struct ProfessinalCard: View {
     // Text Container
     private var textContent: some View {
         VStack(alignment: .trailing, spacing: 6) {
-            Text(titile)
+            Text(title)
                 .font(.headline)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.trailing)
             
-            Text(subtitile)
+            Text(subTitle)
                 .font(.subheadline)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
@@ -240,7 +240,7 @@ struct ProfessinalCard: View {
 }
 
 #Preview {
-    ProfessinalCard(titile: "Analytics", subtitile: "View detailed perfomance metrics and insights", iconName: "chart.line.uptrend.xyaxis", gradientColors: [.blue, .cyan  ], badgeText: "New") {
+    ProfessionalCardView(titile: "Analytics", subtitile: "View detailed perfomance metrics and insights", iconName: "chart.line.uptrend.xyaxis", gradientColors: [.blue, .cyan  ], badgeText: "New") {
         
     }
 }
