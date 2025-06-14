@@ -240,7 +240,7 @@ public struct ProfessionalCardView: View {
 }
 
 #Preview {
-    ProfessionalCardView(titile: "Analytics", subtitile: "View detailed perfomance metrics and insights", iconName: "chart.line.uptrend.xyaxis", gradientColors: [.blue, .cyan  ], badgeText: "New") {
+    ProfessionalCardView(title: "Analytics", subTitle: "View detailed perfomance metrics and insights", iconName: "chart.line.uptrend.xyaxis", gradientColors: [.blue, .cyan  ], badgeText: "New") {
         
     }
 }
