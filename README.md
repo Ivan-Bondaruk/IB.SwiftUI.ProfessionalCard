@@ -36,6 +36,9 @@ That's it! The package is now ready to use in your SwiftUI project.
 - Swift 6.1
 - SwiftUI framework
 
+## Screenshots
+![One row cards](Images/ScreenShot_3.png)
+![](Images/ScreenShot_1.png)
 ## 🧩 Usage
 
 ```swift
