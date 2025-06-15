@@ -5,13 +5,13 @@
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-Compatible-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-**ProfessionalCard** is a SwiftUI component that displays a clean and elegant personal card. Easily customizable and perfect for apps that want to present contact or professional information in a stylish way.
+**ProfessionalCard** is a SwiftUI component that displays a clean and elegant personal card. Easily customizable and perfect for apps that want to use lightly cards in a stylish way.
 
 ## ✨ Features
 
 - Modern card design
 - SwiftUI-native
-- Fully customizable: name, title, contact info, colors
+- Fully customizable: title, sub title, gradient colora
 - Works on both iOS and macOS
 - Lightweight and dependency-free
 
