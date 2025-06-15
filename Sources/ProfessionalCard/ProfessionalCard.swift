@@ -1,6 +1,5 @@
 //
 //  ProfessinalCard.swift
-//  WeC
 //
 //  Created by Ivan Bondaruk on 14/06/2025.
 //
@@ -9,52 +8,55 @@ import SwiftUI
 import AppKit
 
 public struct ProfessionalCardView: View {
-    let title: String
-    let subTitle: String
-    let iconName: String
-    let gradientColors: [Color]
-    let badgeText: String?
-    let action: () -> Void
+    @StateObject var viewModel: ProfessionalCardViewViewModel
     
-    @State private var isPressed: Bool = false
-    @State private var isHovered: Bool = false
-    @State private var showProgressBar: Bool = false
-    
-    public init(title: String, subTitle: String, iconName: String, gradientColors: [Color], badgeText: String?, action: @escaping () -> Void, isPressed: Bool = false, isHovered: Bool = false, showProgressBar: Bool = false) {
-        self.title = title
-        self.subTitle = subTitle
-        self.iconName = iconName
-        self.gradientColors = gradientColors
-        self.badgeText = badgeText
-        self.action = action
-        self.isPressed = isPressed
-        self.isHovered = isHovered
-        self.showProgressBar = showProgressBar
+    /// Init
+    ///
+    /// - Parameters:
+    ///   - title: Card title
+    ///   - subTitle: Card sub title
+    ///   - iconName: Card icon
+    ///   - gradientColors: Which colors need to use to make gradient effect
+    ///   - badgeText: Card badge text
+    ///   - action: Action that needs to be execute when press on card
+    public init(title: String,
+                subTitle: String,
+                iconName: String,
+                gradientColors: [Color],
+                badgeText: String?, action: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: ProfessionalCardViewViewModel(
+            title: title,
+            subTitle: subTitle,
+            iconName: iconName,
+            gradientColors: gradientColors,
+            badgeText: badgeText,
+            action: action
+        ))
     }
     
     public var body: some View {
         Button {
-            
+            viewModel.action()
         } label: {
             cardContent
         }
         .buttonStyle(PlainButtonStyle())
-        .scaleEffect(isPressed ? 0.96 : 1.0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.6,), value: isPressed)
+        .scaleEffect(viewModel.isPressed ? 0.96 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6,), value: viewModel.isPressed)
         .onLongPressGesture(
             minimumDuration: 0,
             maximumDistance: .infinity,
-            pressing: handlePressState,
+            pressing: viewModel.handlePressState,
             perform: {}
         )
         .onHover{ hovering in
             withAnimation(.easeInOut(duration: 0.2)) {
-                isHovered = hovering
+                viewModel.isHovered = hovering
             }
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 1.0).delay(0.3)) {
-                showProgressBar = true
+                viewModel.showProgressBar = true
             }
         }
     }
@@ -64,11 +66,11 @@ public struct ProfessionalCardView: View {
         VStack(spacing: 20) {
             headerSection
             
-            if showProgressBar {
+            if viewModel.showProgressBar {
                 progressIndicator
             }
             
-            if let badge = badgeText {
+            if let badge = viewModel.badgeText {
                 badgeSection(badge)
             }
         }
@@ -92,32 +94,33 @@ public struct ProfessionalCardView: View {
     private var iconContainer: some View {
         ZStack {
             Circle()
-                .fill(iconBackgroundGradient)
+                .fill(viewModel.iconBackgroundGradient)
                 .frame(width: 56, height: 56)
-                .shadow(color: gradientColors.first?.opacity(0.3) ?? .clear, radius: 6, x: 0, y: 3)
+                .shadow(color: viewModel.gradientColors.first?.opacity(0.3) ?? .clear, radius: 6, x: 0, y: 3)
             
-            Image(systemName: iconName)
+            Image(systemName: viewModel.iconName)
                 .font(.title)
                 .fontWeight(.semibold)
-                .foregroundStyle(iconGradient)
+                .foregroundStyle(viewModel.iconGradient)
         }
     }
     
     // Text Container
     private var textContent: some View {
         VStack(alignment: .trailing, spacing: 6) {
-            Text(title)
+            Text(viewModel.title)
                 .font(.headline)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.trailing)
             
-            Text(subTitle)
+            Text(viewModel.subTitle)
                 .font(.subheadline)
                 .fontWeight(.bold)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.trailing)
-                .lineLimit(2)
+                .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true) // ✅ Переносит по ширине
         }
         
     }
@@ -126,7 +129,7 @@ public struct ProfessionalCardView: View {
     private var progressIndicator: some View {
         GeometryReader { geometry in
             RoundedRectangle(cornerRadius: 3)
-                .fill(progressGradient)
+                .fill(viewModel.progressGradient)
                 .frame(height: 6)
                 .frame(width: geometry.size.width * 0.7)
                 .transition(.asymmetric(insertion: .scale(scale: 0.1, anchor: .leading).combined(with: .opacity), removal: .opacity))
@@ -148,7 +151,7 @@ public struct ProfessionalCardView: View {
                     .padding(.vertical, 6)
                     .background(
                         Capsule()
-                            .fill(badgeGradient)
+                            .fill(viewModel.badgeGradient)
                     )
             }
         }
@@ -158,10 +161,10 @@ public struct ProfessionalCardView: View {
         RoundedRectangle(cornerRadius: 20)
             .fill(.ultraThinMaterial)
             .shadow(
-                color: shadowColor,
-                radius: shadowRadius,
+                color: viewModel.shadowColor,
+                radius: viewModel.shadowRadius,
                 x: 0,
-                y: shadowOffset
+                y: viewModel.shadowOffset
             )
     }
     
@@ -170,73 +173,13 @@ public struct ProfessionalCardView: View {
         RoundedRectangle(cornerRadius: 20)
             .strokeBorder(
                 LinearGradient(
-                    colors: gradientColors.map {$0.opacity(0.3)},
+                    colors: viewModel.gradientColors.map {$0.opacity(0.3)},
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 ),
-                lineWidth: isHovered ? 2 : 1
+                lineWidth: viewModel.isHovered ? 2 : 1
             )
     }
-    
-    //
-    private var iconBackgroundGradient: LinearGradient {
-        LinearGradient(
-            colors: gradientColors.map {$0.opacity(0.15)},
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-    }
-    
-    private var iconGradient: LinearGradient {
-        LinearGradient(
-            colors: gradientColors,
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-    }
-    
-    private var progressGradient: LinearGradient {
-        LinearGradient(
-            colors: gradientColors,
-            startPoint: .leading,
-            endPoint: .trailing
-        )
-    }
-    
-    private var badgeGradient: LinearGradient {
-        LinearGradient(
-            colors: gradientColors,
-            startPoint: .leading,
-            endPoint: .trailing
-        )
-    }
-    
-    // Shadow properties
-    private var shadowColor: Color {
-        gradientColors.first?.opacity(isPressed ? 0.2 : 0.3) ?? .gray.opacity(0.3)
-    }
-    
-    private var shadowRadius: CGFloat {
-        isPressed ? 8 : 12
-    }
-    
-    private var shadowOffset: CGFloat {
-        isPressed ? 4 : 8
-    }
-    
-    // Helper Methods
-    private func handlePressState(_ pressing: Bool) {
-        withAnimation(.easeInOut(duration: 0.1)) {
-            isPressed = pressing
-        }
-    }
-    
-    private func hapticFeedBack() {
-        NSHapticFeedbackManager.defaultPerformer.perform(.alignment, performanceTime: .now)
-    }
-    
-    
-    
 }
 
 #Preview {
