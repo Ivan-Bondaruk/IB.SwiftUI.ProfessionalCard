@@ -1,6 +1,6 @@
 # ProfessionalCard
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.0.1-blue)
 ![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS-lightgrey)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-Compatible-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -24,7 +24,7 @@ You can add this package directly through **Xcode**:
 1. Open your project in Xcode.
 2. Go to **File > Add Packages...**
 3. Enter the URL of the repository: https://github.com/Ivan-Bondaruk/ProfessionalCard
-4. Select version `1.0.0` or **Up to Next Major**.
+4. Select version `1.0.1` or **Up to Next Major**.
 5. Click **Add Package**.
 
 That's it! The package is now ready to use in your SwiftUI project.
